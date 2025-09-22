@@ -219,19 +219,18 @@ a:hover
 /** 3. Image Container
 *******************************************************************/
 
-.image-container
-{
-    position: fixed;
+.image-container {
+    position: relative;  /* relative works better for responsiveness */
     z-index: 10;
     top: 0;
     left: 0;
 
-    width: 50%;
-    height: 100%;
+    width: 100%;        /* full width of parent / viewport */
+    height: 100vh;      /* full height of viewport */
+    overflow: hidden;   /* hide overflow if image is larger */
 }
 
-.image-container .background-img
-{
+.image-container .background-img {
     position: absolute;
     z-index: 1;
     top: 0;
@@ -240,29 +239,18 @@ a:hover
     width: 100%;
     height: 100%;
 
-    -webkit-transition: opacity 1s ease;
-         -o-transition: opacity 1s ease;
-            transition: opacity 1s ease;
-
-    background: url(../img/background.jpg);
-    background-repeat: no-repeat;
+    background: url(../img/background.jpg) no-repeat center center;
     background-size: cover;
+
+    transition: opacity 1s ease;  /* smoother transitions */
 }
 
-@media (max-width:1200px)
-{
-    .image-container
-    {
-        position: relative;
-        z-index: 10;
-        top: 0;
-        left: 0;
-
-        width: 100%;
-        height: 100vh;
+/* Optional: tweak for very small screens */
+@media (max-width: 768px) {
+    .image-container {
+        height: 60vh; /* reduce height slightly on small screens */
     }
 }
-
 
 
 /** 4. Content Area
@@ -1073,4 +1061,5 @@ a:hover
     color: #000;
     border-bottom: 1px solid #111;
 }
+
 
