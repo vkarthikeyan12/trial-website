@@ -220,36 +220,32 @@ a:hover
 *******************************************************************/
 
 .image-container {
-    position: relative;  /* relative works better for responsiveness */
-    z-index: 10;
-    top: 0;
-    left: 0;
-
-    width: 100%;        /* full width of parent / viewport */
-    height: 100vh;      /* full height of viewport */
-    overflow: hidden;   /* hide overflow if image is larger */
-}
-
-.image-container .background-img {
-    position: absolute;
-    z-index: 1;
-    top: 0;
-    left: 0;
-
     width: 100%;
-    height: 100%;
-
-    background: url(../img/background.jpg) no-repeat center center;
-    background-size: cover;
-
-    transition: opacity 1s ease;  /* smoother transitions */
+    height: 60vh; /* adjust as needed */
+    overflow-x: auto;
+    overflow-y: hidden;
+    display: flex; /* use flex to remove gaps */
+    scroll-behavior: smooth;
 }
 
-/* Optional: tweak for very small screens */
-@media (max-width: 768px) {
-    .image-container {
-        height: 60vh; /* reduce height slightly on small screens */
-    }
+.image-container::-webkit-scrollbar {
+    height: 8px;
+}
+
+.image-container::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 4px;
+}
+
+.image-container::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+}
+
+.image-container img {
+    height: 100%;
+    width: auto; /* maintain aspect ratio */
+    flex-shrink: 0; /* prevents images from shrinking */
+    object-fit: contain;
 }
 
 
@@ -1061,5 +1057,6 @@ a:hover
     color: #000;
     border-bottom: 1px solid #111;
 }
+
 
 
