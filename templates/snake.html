@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Snake Game</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  body { text-align:center; font-family: Arial, sans-serif; }
+  canvas { border: 2px solid #111; background-color: #eee; display:block; margin:20px auto; }
+  #score { font-size: 18px; margin-top: 10px; }
+  button { padding: 8px 16px; font-size: 16px; margin-top: 10px; cursor: pointer; }
+</style>
+</head>
+<body>
+<h2>Snake Game</h2>
+<canvas id="snakeCanvas" width="400" height="400"></canvas>
+<p id="score">Score: 0</p>
+<button onclick="resetGame()">Restart</button>
+<p>Use arrow keys (desktop) or swipe (mobile) to control the snake!</p>
+
+<script>
+const canvas = document.getElementById('snakeCanvas');
+const ctx = canvas.getContext('2d');
+const box = 20;
+
+let snake, food, dx, dy, score, started;
+
+// Reset / start new game
+function resetGame() {
+    snake = [{x: 8*box, y: 8*box}];
+    food = {x: Math.floor(Math.random()*20)*box, y: Math.floor(Math.random()*20)*box};
+    dx = 0;
+    dy = 0;
+    score = 0;
+    started = false;
+    document.getElementById("score").textContent = "Score: 0";
+}
+resetGame();
+
+// Keyboard controls
+document.addEventListener('keydown', (e) => {
+    if(e.key === "ArrowUp" && dy === 0){ dx = 0; dy = -box; started = true; }
+    if(e.key === "ArrowDown" && dy === 0){ dx = 0; dy = box; started = true; }
+    if(e.key === "ArrowLeft" && dx === 0){ dx = -box; dy = 0; started = true; }
+    if(e.key === "ArrowRight" && dx === 0){ dx = box; dy = 0; started = true; }
+});
+
+// Touch swipe controls
+let touchStartX = 0, touchStartY = 0;
+canvas.addEventListener('touchstart', e => {
+    const touch = e.touches[0];
+    touchStartX = touch.clientX;
+    touchStartY = touch.clientY;
+});
+canvas.addEventListener('touchend', e => {
+    const touch = e.changedTouches[0];
+    const dxSwipe = touch.clientX - touchStartX;
+    const dySwipe = touch.clientY - touchStartY;
+    if(Math.abs(dxSwipe) > Math.abs(dySwipe)) {
+        if(dxSwipe > 0 && dx === 0) { dx = box; dy = 0; started = true; }
+        if(dxSwipe < 0 && dx === 0) { dx = -box; dy = 0; started = true; }
+    } else {
+        if(dySwipe > 0 && dy === 0) { dx = 0; dy = box; started = true; }
+        if(dySwipe < 0 && dy === 0) { dx = 0; dy = -box; started = true; }
+    }
+});
+
+// Main draw loop
+function draw() {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    // Draw snake
+    snake.forEach((s,i)=>{
+        ctx.fillStyle = i===0 ? "green" : "lime";
+        ctx.fillRect(s.x, s.y, box, box);
+    });
+
+    // Draw food
+    ctx.fillStyle = "red";
+    ctx.fillRect(food.x, food.y, box, box);
+
+    if (!started) return; // Wait until first move
+
+    // New head position
+    let snakeX = snake[0].x + dx;
+    let snakeY = snake[0].y + dy;
+
+    // Collision check
+    for(let i=0;i<snake.length;i++){
+        if(snakeX===snake[i].x && snakeY===snake[i].y ||
+           snakeX<0 || snakeX>=canvas.width || snakeY<0 || snakeY>=canvas.height){
+            alert("Game Over! Final Score: " + score);
+            resetGame();
+            return;
+        }
+    }
+
+    // Eat food
+    if(snakeX===food.x && snakeY===food.y){
+        score++;
+        document.getElementById("score").textContent = "Score: " + score;
+        food = {x: Math.floor(Math.random()*20)*box, y: Math.floor(Math.random()*20)*box};
+    } else {
+        snake.pop();
+    }
+
+    // Add new head
+    snake.unshift({x: snakeX, y: snakeY});
+}
+
+setInterval(draw, 100);
+</script>
+</body>
+</html>
