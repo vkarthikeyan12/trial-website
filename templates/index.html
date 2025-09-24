@@ -182,15 +182,14 @@
                     </ol>
 
 
-                  <!-- PROJECTS -->
-
-                      <h3 class="headline scroll-animated-from-right">Live Projects</h3>
-
-   <button
-  onclick="window.open('../templates/snake.html', '_blank')"
-  style="padding:10px 20px; background:#28a745; color:white; border:none; border-radius:5px; font-size:16px; cursor:pointer;">
-  🎮 Play Snake Game
-</button>
+                 <!-- PROJECTS -->
+                <h3 class="headline scroll-animated-from-right">Live Projects</h3>
+                <button
+                  onclick="document.getElementById('snakeModal').style.display='block'; resetGame();"
+                  style="padding:10px 20px; background:#28a745; color:white; border:none; border-radius:5px; font-size:16px; cursor:pointer;">
+                  🎮 Play Snake Game
+                </button>
+            </section>
 
 
                     <!-- /PROJECTS -->
@@ -288,6 +287,17 @@
         <!-- /CONTENT AREA -->
 
 
+        <!-- SNAKE GAME MODAL -->
+    <div id="snakeModal">
+        <button onclick="document.getElementById('snakeModal').style.display='none'">✖ Close</button>
+        <h2 style="color:white;">Snake Game</h2>
+        <canvas id="snakeCanvas" width="400" height="400"></canvas>
+        <p id="score">Score: 0</p>
+        <button id="restartBtn" onclick="resetGame()">Restart</button>
+        <p style="color:white;">Use arrow keys or swipe on mobile to control the snake!</p>
+    </div>
+
+
         <!-- JAVASCRIPTS -->
         <script type="text/javascript" src="../static/assets/js/plugins.js"></script>
         <script type="text/javascript" src="../static/assets/js/main.js"></script>
@@ -301,11 +311,72 @@
         <script src="scroll.js"></script>
 
 
+        <!-- Snake Game Script -->
+    <script>
+    const canvas = document.getElementById('snakeCanvas');
+    const ctx = canvas.getContext('2d');
+    const box = 20;
+    let snake, food, dx, dy, score, started;
+
+    function resetGame() {
+        snake = [{x: 8*box, y: 8*box}];
+        food = {x: Math.floor(Math.random()*20)*box, y: Math.floor(Math.random()*20)*box};
+        dx = 0; dy = 0;
+        score = 0; started = false;
+        document.getElementById("score").textContent = "Score: 0";
+    }
+    resetGame();
+
+    document.addEventListener('keydown', e => {
+        if(e.key==="ArrowUp" && dy===0){dx=0;dy=-box;started=true;}
+        if(e.key==="ArrowDown"&&dy===0){dx=0;dy=box;started=true;}
+        if(e.key==="ArrowLeft"&&dx===0){dx=-box;dy=0;started=true;}
+        if(e.key==="ArrowRight"&&dx===0){dx=box;dy=0;started=true;}
+    });
+
+    let touchStartX=0, touchStartY=0;
+    canvas.addEventListener('touchstart', e => {
+        const t=e.touches[0]; touchStartX=t.clientX; touchStartY=t.clientY;
+    });
+    canvas.addEventListener('touchend', e => {
+        const t=e.changedTouches[0];
+        const dxSwipe=t.clientX-touchStartX, dySwipe=t.clientY-touchStartY;
+        if(Math.abs(dxSwipe)>Math.abs(dySwipe)){
+            if(dxSwipe>0&&dx===0){dx=box;dy=0;started=true;}
+            if(dxSwipe<0&&dx===0){dx=-box;dy=0;started=true;}
+        } else {
+            if(dySwipe>0&&dy===0){dx=0;dy=box;started=true;}
+            if(dySwipe<0&&dy===0){dx=0;dy=-box;started=true;}
+        }
+    });
+
+    function draw(){
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        snake.forEach((s,i)=>{ctx.fillStyle=i===0?"green":"lime";ctx.fillRect(s.x,s.y,box,box);});
+        ctx.fillStyle="red"; ctx.fillRect(food.x,food.y,box,box);
+        if(!started) return;
+
+        let snakeX=snake[0].x+dx, snakeY=snake[0].y+dy;
+        for(let i=0;i<snake.length;i++){
+            if(snakeX===snake[i].x && snakeY===snake[i].y || snakeX<0||snakeX>=canvas.width||snakeY<0||snakeY>=canvas.height){
+                alert("Game Over! Final Score: "+score); resetGame(); return;
+            }
+        }
+        if(snakeX===food.x && snakeY===food.y){
+            score++; document.getElementById("score").textContent="Score: "+score;
+            food={x:Math.floor(Math.random()*20)*box,y:Math.floor(Math.random()*20)*box};
+        } else { snake.pop(); }
+        snake.unshift({x:snakeX,y:snakeY});
+    }
+    setInterval(draw,100);
+    </script>
+
     </body>
 
 
 
 </html>
+
 
 
 
