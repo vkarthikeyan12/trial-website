@@ -29,7 +29,7 @@
     </head>
 
 
-     <style>
+    <style>
     body {
       display: flex;
       justify-content: center;
@@ -41,9 +41,17 @@
       font-family: Arial, sans-serif;
       flex-direction: column;
     }
+    .game-container {
+      background: #000;
+      padding: 15px;
+      border: 5px solid #000; /* black box around */
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.8);
+    }
     canvas {
-      border: 2px solid #fff;
+      border: 2px solid #fff; /* white line inside black box */
       background-color: #000;
+      display: block;
     }
     h1 {
       margin-bottom: 10px;
@@ -53,6 +61,7 @@
     #score {
       margin-top: 10px;
       font-size: 18px;
+      text-align: center;
     }
   </style>
 
@@ -408,6 +417,7 @@
 
 
 </html>
+
 
 
 
