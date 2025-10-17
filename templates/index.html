@@ -152,20 +152,104 @@
 
 
                     <!-- SERVICE LIST -->
-                <div class="scroll-container">
-                    <p class="scroll-animated-from-right">Blue Teaming</p>
-                    <p class="scroll-animated-from-right">Red Teaming</p>
-                    <p class="scroll-animated-from-right">Purple Teaming</p>
-                    <p class="scroll-animated-from-right">Leadership</p>
-                    <p class="scroll-animated-from-right">Presentation</p>
-                    <p class="scroll-animated-from-right">Python</p>
-                    <p class="scroll-animated-from-right">Bash</p>
-                    <p class="scroll-animated-from-right">C++</p>
 
-                </div>
+                    <div id="skills-container">
+  <div class="skill">
+    <span class="skill-name">Blue Teaming</span>
+    <div class="skill-bar-bg">
+      <div class="skill-bar-fill" data-percent="90%"></div>
+    </div>
+  </div>
+
+  <div class="skill">
+    <span class="skill-name">Red Teaming</span>
+    <div class="skill-bar-bg">
+      <div class="skill-bar-fill" data-percent="90%"></div>
+    </div>
+  </div>
+
+  <div class="skill">
+    <span class="skill-name">Purple Teaming</span>
+    <div class="skill-bar-bg">
+      <div class="skill-bar-fill" data-percent="60%"></div>
+    </div>
+  </div>
+
+  <div class="skill">
+    <span class="skill-name">Leadership</span>
+    <div class="skill-bar-bg">
+      <div class="skill-bar-fill" data-percent="90%"></div>
+    </div>
+  </div>
+
+  <div class="skill">
+    <span class="skill-name">Python</span>
+    <div class="skill-bar-bg">
+      <div class="skill-bar-fill" data-percent="100%"></div>
+    </div>
+  </div>
+
+  <div class="skill">
+    <span class="skill-name">Bash</span>
+    <div class="skill-bar-bg">
+      <div class="skill-bar-fill" data-percent="85%"></div>
+    </div>
+  </div>
+
+  <div class="skill">
+    <span class="skill-name">C++</span>
+    <div class="skill-bar-bg">
+      <div class="skill-bar-fill" data-percent="80%"></div>
+    </div>
+  </div>
+</div>
                     <!-- /SERVICE LIST -->
 
 
+<style>
+#skills-container {
+  width: 100%;
+  max-width: 600px;
+  margin: 20px 0;
+}
+
+.skill {
+  margin-bottom: 15px;
+}
+
+.skill-name {
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: block;
+  color: black;
+}
+
+.skill-bar-bg {
+  width: 100%;
+  height: 25px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.skill-bar-fill {
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, #4caf50, #8bc34a, #cddc39);
+  border-radius: 12px 0 0 12px;
+  position: relative;
+}
+
+.skill-bar-fill::after {
+  content: attr(data-percent);
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #fff;
+  font-weight: bold;
+}
+</style>
 
                  <!-- SERVICE -->
 
@@ -185,9 +269,9 @@
                  <!-- PROJECTS -->
                 <h3 class="headline scroll-animated-from-right">Live Projects</h3>
                 <button
-                  onclick="document.getElementById('snakeModal').style.display='block'; resetGame();"
-                  style="padding:10px 20px; background:#28a745; color:white; border:none; border-radius:5px; font-size:16px; cursor:pointer;">
-                  🎮 Play Snake Game
+                id="playSnakeBtn"
+                style="padding:10px 20px; background:#28a745; color:white; border:none; border-radius:5px; font-size:16px; cursor:pointer;">
+                🎮 Play Snake Game
                 </button>
 
 
@@ -231,7 +315,7 @@
 
 
                     <!-- SERVICE LIST -->
-                <div class="scroll-container">
+
                     <p class="scroll-animated-from-right">ICBDCCIS 2019</p>
                     <p class="scroll-animated-from-right">UQBS Colloquium 2023</p>
                     <p class="scroll-animated-from-right">ANZAM 2023</p>
@@ -239,7 +323,7 @@
                     <p class="scroll-animated-from-right">CrikeyCon IX 2024</p>
                     <p class="scroll-animated-from-right">Auscert 2024</p>
                     <p class="scroll-animated-from-right">Bsides Brisbane 2024</p>
-                </div>
+
 
                     <!-- /SERVICE LIST -->
 
@@ -249,11 +333,11 @@
 
 
                     <!-- SERVICE LIST -->
-                <div class="scroll-container">
+
                     <p class="scroll-animated-from-right">Past member and President of UQ Cybersquad</p>
-                    <p class="scroll-animated-from-right">Secretary of UQ Reality Labs</p>
+                    <p class="scroll-animated-from-right">Past Secretary of UQ Reality Labs</p>
                     <p class="scroll-animated-from-right">multiple CTF participations</p>
-                </div>
+
 
 
 <h3 class="headline scroll-animated-from-right">Publication</h3>
@@ -318,17 +402,6 @@
         <!-- /CONTENT AREA -->
 
 
-        <!-- SNAKE GAME MODAL -->
-    <div id="snakeModal">
-        <button onclick="document.getElementById('snakeModal').style.display='none'">✖ Close</button>
-        <h2 style="color:white;">Snake Game</h2>
-        <canvas id="snakeCanvas" width="400" height="400"></canvas>
-        <p id="score">Score: 0</p>
-        <button id="restartBtn" onclick="resetGame()">Restart</button>
-        <p style="color:white;">Use arrow keys or swipe on mobile to control the snake!</p>
-    </div>
-
-
         <!-- JAVASCRIPTS -->
         <script type="text/javascript" src="../static/assets/js/plugins.js"></script>
         <script type="text/javascript" src="../static/assets/js/main.js"></script>
@@ -343,11 +416,41 @@
 
 
         <!-- Snake Game Script -->
-    <script>
+   <script>
+document.getElementById('playSnakeBtn').addEventListener('click', () => {
+    // Create modal dynamically
+    let modal = document.createElement('div');
+    modal.id = 'snakeModal';
+    modal.style.position = 'fixed';
+    modal.style.top = '50%';
+    modal.style.left = '50%';
+    modal.style.transform = 'translate(-50%, -50%)';
+    modal.style.background = '#000';
+    modal.style.padding = '20px';
+    modal.style.borderRadius = '10px';
+    modal.style.zIndex = '9999';
+    modal.innerHTML = `
+        <button id="closeSnake">✖ Close</button>
+        <h2 style="color:white;">Snake Game</h2>
+        <canvas id="snakeCanvas" width="400" height="400"></canvas>
+        <p id="score" style="color:white;">Score: 0</p>
+        <button id="restartBtn">Restart</button>
+        <p style="color:white;">Use arrow keys or swipe on mobile to control the snake!</p>
+    `;
+    document.body.appendChild(modal);
+
+    // Close button
+    document.getElementById('closeSnake').addEventListener('click', () => {
+        clearInterval(gameInterval);
+        modal.remove(); // remove modal completely
+    });
+
+    // Snake game setup
     const canvas = document.getElementById('snakeCanvas');
     const ctx = canvas.getContext('2d');
     const box = 20;
     let snake, food, dx, dy, score, started;
+    let gameInterval;
 
     function resetGame() {
         snake = [{x: 8*box, y: 8*box}];
@@ -356,32 +459,14 @@
         score = 0; started = false;
         document.getElementById("score").textContent = "Score: 0";
     }
-    resetGame();
 
-    document.addEventListener('keydown', e => {
-        if(e.key==="ArrowUp" && dy===0){dx=0;dy=-box;started=true;}
-        if(e.key==="ArrowDown"&&dy===0){dx=0;dy=box;started=true;}
-        if(e.key==="ArrowLeft"&&dx===0){dx=-box;dy=0;started=true;}
-        if(e.key==="ArrowRight"&&dx===0){dx=box;dy=0;started=true;}
-    });
+    function startGame() {
+        resetGame();
+        if (gameInterval) clearInterval(gameInterval);
+        gameInterval = setInterval(draw, 100);
+    }
 
-    let touchStartX=0, touchStartY=0;
-    canvas.addEventListener('touchstart', e => {
-        const t=e.touches[0]; touchStartX=t.clientX; touchStartY=t.clientY;
-    });
-    canvas.addEventListener('touchend', e => {
-        const t=e.changedTouches[0];
-        const dxSwipe=t.clientX-touchStartX, dySwipe=t.clientY-touchStartY;
-        if(Math.abs(dxSwipe)>Math.abs(dySwipe)){
-            if(dxSwipe>0&&dx===0){dx=box;dy=0;started=true;}
-            if(dxSwipe<0&&dx===0){dx=-box;dy=0;started=true;}
-        } else {
-            if(dySwipe>0&&dy===0){dx=0;dy=box;started=true;}
-            if(dySwipe<0&&dy===0){dx=0;dy=-box;started=true;}
-        }
-    });
-
-    function draw(){
+    function draw() {
         ctx.clearRect(0,0,canvas.width,canvas.height);
         snake.forEach((s,i)=>{ctx.fillStyle=i===0?"green":"lime";ctx.fillRect(s.x,s.y,box,box);});
         ctx.fillStyle="red"; ctx.fillRect(food.x,food.y,box,box);
@@ -399,8 +484,54 @@
         } else { snake.pop(); }
         snake.unshift({x:snakeX,y:snakeY});
     }
-    setInterval(draw,100);
-    </script>
+
+    // Keyboard controls
+    document.addEventListener('keydown', e => {
+        if(e.key==="ArrowUp" && dy===0){dx=0;dy=-box;started=true;}
+        if(e.key==="ArrowDown"&&dy===0){dx=0;dy=box;started=true;}
+        if(e.key==="ArrowLeft"&&dx===0){dx=-box;dy=0;started=true;}
+        if(e.key==="ArrowRight"&&dx===0){dx=box;dy=0;started=true;}
+    });
+
+    // Touch controls
+    let touchStartX=0, touchStartY=0;
+    canvas.addEventListener('touchstart', e => {
+        const t=e.touches[0]; touchStartX=t.clientX; touchStartY=t.clientY;
+    });
+    canvas.addEventListener('touchend', e => {
+        const t=e.changedTouches[0];
+        const dxSwipe=t.clientX-touchStartX, dySwipe=t.clientY-touchStartY;
+        if(Math.abs(dxSwipe)>Math.abs(dySwipe)){
+            if(dxSwipe>0&&dx===0){dx=box;dy=0;started=true;}
+            if(dxSwipe<0&&dx===0){dx=-box;dy=0;started=true;}
+        } else {
+            if(dySwipe>0&&dy===0){dx=0;dy=box;started=true;}
+            if(dySwipe<0&&dy===0){dx=0;dy=-box;started=true;}
+        }
+    });
+
+    document.getElementById('restartBtn').addEventListener('click', startGame);
+
+    startGame();
+});
+</script>
+
+
+    <script>
+gsap.utils.toArray(".skill-bar-fill").forEach(bar => {
+  let percent = bar.getAttribute("data-percent");
+  gsap.to(bar, {
+    width: percent,
+    duration: 2,
+    ease: "power2.out",
+    scrollTrigger: {
+      trigger: bar,
+      start: "top 80%",
+    }
+  });
+});
+</script>
+
 
     </body>
 
