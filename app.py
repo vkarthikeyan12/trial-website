@@ -10,13 +10,13 @@ app = Flask(__name__)
 PROFILE = {
     "name": "Karthikeyan V.",
     "handle": "vkarthikeyan12",
-    "title": "Software Engineer — AI/ML & Cybersecurity",
+    "title": "Assistant Professor",
     "location": "Nagpur, India",
-    "education": "B.Tech, JDCOEM",
+    "education": "PhD Pursuing RBU",
     "bio": (
-        "I build things at the intersection of machine learning and security — "
-        "from real-time computer vision to offensive-security tooling. Most of "
-        "what's here started as a 'wait, can I actually do that?' side project."
+        "Karthikeyan is a cybersecurity professional, researcher, and Assistant Professor in Computer Science with a Master’s degree in Cybersecurity" 
+        "from the University of Queensland, Australia. His expertise spans cybersecurity, digital forensics, cloud security, AI security, and threat" 
+        "intelligence. He is passionate about practical cybersecurity education, research, and developing industry-oriented security laboratories and solutions."
     ),
     "email": "karthikeyan@vkarthikeyan.com",  # TODO: replace with your real address
     "links": {
