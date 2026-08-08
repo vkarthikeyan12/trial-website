@@ -18,7 +18,7 @@ PROFILE = {
         "from the University of Queensland, Australia. His expertise spans cybersecurity, digital forensics, cloud security, AI security, and threat" 
         "intelligence. He is passionate about practical cybersecurity education, research, and developing industry-oriented security laboratories and solutions."
     ),
-    "email": "karthikeyan@vkarthikeyan.com",  # TODO: replace with your real address
+    "email": "kar120997@gmail.com",  # TODO: replace with your real address
     "links": {
         "github": "https://github.com/vkarthikeyan12",
         "linkedin": "https://www.linkedin.com/in/karthikeyan-venkatesan/",
