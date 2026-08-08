@@ -14,8 +14,8 @@ PROFILE = {
     "location": "Nagpur, India",
     "education": "PhD Pursuing RBU",
     "bio": (
-        "Karthikeyan is a cybersecurity professional, researcher, and Assistant Professor in Computer Science with a Master’s degree in Cybersecurity" 
-        "from the University of Queensland, Australia. His expertise spans cybersecurity, digital forensics, cloud security, AI security, and threat" 
+        "Karthikeyan is a cybersecurity professional, researcher, and Assistant Professor in Computer Science with a Master’s degree in Cybersecurity " 
+        "from the University of Queensland, Australia. His expertise spans cybersecurity, digital forensics, cloud security, AI security, and threat " 
         "intelligence. He is passionate about practical cybersecurity education, research, and developing industry-oriented security laboratories and solutions."
     ),
     "email": "kar120997@gmail.com",  # TODO: replace with your real address
